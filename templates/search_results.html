@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="#"> Search </a></li>
+<li class="breadcrumb-item active"> Results </li>
+
+{% endblock %}
+{% block content %}
+
+
+<h2> Search Results </h2>
+<p> Your search: "{{ user_search }}" </p>
+
+
+<hr>
+
+{% if matches_found == False %}
+  <h5> No matches were found! </h5>
+{% endif %}
+
+
+{% if length_of_match_lists.0 > 0 %}
+  <h4> Users </h4>
+  {% for user in results.0 %}
+    <a href="{% url 'view_profile' user.pk %}">
+      <p> {{ user }} </p>
+    </a>
+  {% endfor %}
+{% endif %}
+
+{% if length_of_match_lists.1 > 0 or length_of_match_lists.2 > 0 %}
+  <h4> Messages </h4>
+  {% for message in results.1 %}
+    <a href="{% url 'open_message' message.pk %}">
+      <p> {{ message }} </p>
+    </a>
+  {% endfor %}
+
+  {% for reply in results.2 %}
+    <a href="{% url 'open_message' reply.original_message.pk %}">
+      <p> {{ reply }} </p>
+    </a>
+  {% endfor %}
+{% endif %}
+
+{% if length_of_match_lists.3 > 0 %}
+  <h4> Classes </h4>
+  {% for class in results.3 %}
+    <a href="{% url 'class_details' class.pk %}">
+      <p> {{ class }} </p>
+    </a>
+  {% endfor %}
+{% endif %}
+
+{% if length_of_match_lists.4 > 0 %}
+  <h4> Class Topics </h4>
+  {% for topic in results.4 %}
+    <a href="{% url 'class_topic_posts' topic.classReference.pk topic.pk %}">
+      <p> {{ topic }} </p>
+    </a>
+  {% endfor %}
+{% endif %}
+
+
+{% if length_of_match_lists.5 > 0 %}
+  <h4> Class Wikis </h4>
+  {% for wiki in results.5 %}
+    <a href="{% url 'class_wiki_details' wiki.pk %}">
+      <p> {{ wiki }} </p>
+    </a>
+  {% endfor %}
+{% endif %}
+
+{% if length_of_match_lists.6 > 0 %}
+  <h4> Class Wiki Topics </h4>
+  {% for topic in results.6 %}
+    <a href="{% url 'class_wiki_topic_posts' topic.class_wiki_reference.pk topic.pk %}"
+      <p> {{ topic }} </p>
+    </a>
+  {% endfor %}
+{% endif %}
+
+<a href="{% url 'search' %}" class="btn btn-primary"> Try a different search </a>
+<a href="{% url 'home' %}" class="btn btn-success"> Go Home </a>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Enter a new class{% endblock %}
+
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Conversations</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'class_wiki' %}"> Class Wiki </a></li>
+  <li class="breadcrumb-item"><a href="{% url 'class_wiki_details' class_wiki.pk %}"> {{ class_wiki }} </a></li>
+  <li class="breadcrumb-item active"> Post new content </li>
+
+{% endblock %}
+
+{% block content %}
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-success" style="margin-bottom: 1%;">Post</button>
+  </form>
+{% endblock %}
+
+{% block javascript %}
+  <script>
+    var simplemde = new SimpleMDE();
+  </script>
+{% endblock %}

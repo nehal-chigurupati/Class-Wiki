@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Conversations</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'class_wiki' %}"> Class Wiki </a></li>
+  <li class="breadcrumb-item"><a href="{% url 'class_wiki_details' class_wiki.pk %}"> {{ class_wiki }} </a></li>
+  <li class="breadcrumb-item active"> See Followers </li>
+
+{% endblock %}
+
+{% block content %}
+<style>
+  tr {
+    border: solid;
+    border-width: 2px 0;
+  }
+</style>
+  <h1> {{ class_wiki }} Wiki Followers </h1>
+  <a href="{% url 'class_wiki_details' class_wiki.pk %}" class="btn btn-primary btn-sm" style="margin-bottom: .2%;"> Return to wiki details </a>
+  <table style="width:100%; ">
+    <thead class="thead-inverse">
+    <tr>
+      <th> Follower </th>
+      <th> Is also a contributor? </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for follower in class_wiki.followers.all %}
+    <tr>
+      <td><a href="#">{{ follower.username }}</a></td>
+      <td>
+        {% if follower in class_wiki.contributors.all %}
+          Contributor
+        {% else %}
+          No
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

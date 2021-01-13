@@ -1,0 +1,27 @@
+
+
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'home' %}">Conversations</a></li>
+<li class="breadcrumb-item"><a href="{% url 'class_wiki' %}"> Class Wiki </a> </li>
+<li class="breadcrumb-item"><a href="{% url 'class_wiki_details' content.class_wiki.pk %}"> {{ content.class_wiki }} Wiki </a></li>
+<li class="breadcrumb-item active"> {{ content }} </li>
+
+{% endblock %}
+
+{% block content %}
+
+  <h3 style="margin-top: 3%;"> {{ content.class_wiki }} Wiki </h3>
+  <h4> Content: {{ content }} </h4>
+  <p style="color: darkgrey; font-size: 15px; weight: 300%; margin-bottom: 0%; margin-top: 0%;"> Created by {{ content.created_by }} </p>
+  <p style="color: darkgrey; font-size: 15px; weight: 300%; margin-top: 0%; margin-bottom: 0%;"> Created on {{ content.created_at }} </p>
+  <h3> Description </h3>
+  <p style="color: black; font-size: 15px; weight: 300%; margin-top: 0%; margin-bottom: 0%;"> {{ content.description }} </p>
+  <h3> Content </h3>
+  <p style="color: black; font-size: 15px; weight: 300%; margin-top: 0%; margin-bottom: 0%;"> {{ content.get_content_as_markdown }} </p>
+{% endblock %}

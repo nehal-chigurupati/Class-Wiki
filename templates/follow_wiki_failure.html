@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'home' %}">Conversations</a></li>
+<li class="breadcrumb-item"><a href="{% url 'class_wiki' %}"> Class Wiki </a> </li>
+<li class="breadcrumb-item"><a href="{% url 'class_wiki_details' class_wiki.pk %}"> {{ class_wiki }} Wiki </a></li>
+
+{% endblock %}
+
+{% block content %}
+  <h1> {{ error_message}} </h1>
+
+  <a href="{% url 'class_wiki_details' class_wiki.pk %}", class= "btn btn-success btn-lg" style="margin-top: .5%; margin-bottom: .25%;"> Return to the class wiki details </a>
+
+{% endblock %}

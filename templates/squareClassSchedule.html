@@ -1,0 +1,348 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Conversations</a></li>
+  <li class="breadcrumb-item active">Week Schedule</li>
+{% endblock %}
+
+{% block content %}
+<style>
+.vertical {
+    border-left: 6px solid lightblue;
+    padding: 10px 15px;
+    height: 650px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    left: 50%;
+    margin: 0px 20px;
+  }
+
+hr { width:100%; height:5px; background: darkblue; opacity: 60%; margin-bottom: 1%; margin-top: 1%}
+
+
+
+</style>
+<div class="boxed" style="border-color: lightblue; background-color: rgba(255,255,255,0.85); float: center; padding-left: 2%; border-radius: 25px; padding-top: 2%; padding-bottom: 0%">
+<h4 style="margin-top: 4.5%; font-weight: 700; margin-bottom: 0%;">
+  Week
+  <a href = "{% url 'new_class' %}" class="btn btn-primary btn-sm" style="margin-top: 0%; margin-bottom: 0%; margin-left: 59%; color: white; font-weight: 400; padding: .5% .5%"> Post a new class </a>
+  <a href = "{% url 'new_meetup' %}" class="btn btn-success btn-sm" style="margin-top: 0%; margin-bottom: 0%; margin-left: 8.5%; color: white; font-weight: 400; padding: .5% .5%"> Post a new meetup </a>
+</h4>
+<a href="{% url 'weekend_schedule' %}" class="btn btn-lg" style="margin-top: 0%; margin-left: 0%; padding: 0% 0%; color: darkgrey; font-weight: 500;">  Go to the Weekend </a>
+<div class = "card-deck">
+  <div class="card text-center">
+    <div class="card-body">
+      <h5 class="card-title"> <a href="#" class="btn btn-lg" style="margin-top: 0%; margin-left: 0%; padding: 0% 0%; color: black; font-weight: 500;">  Monday Plans </a> </h5>
+      {% for meetup in morningMeetups %}
+        {% if meetup.onMonday == True %}
+        <div class="card bg-info" style="margin-bottom: 1%; margin-left: 5%; margin-right: 5%;">
+          <p class="card-text" style="margin-bottom: 0%; font-size: 15px; color: white;"> <a href="{% url 'meetup_details' meetup.pk %}" class = "btn btn-sm" style="font-size: 15px; color: white; margin-bottom: 0%; margin-top: 0%; padding: 0px 0px;"> {{ meetup }} </a> </p>
+          <p class="card-text" style="margin-bottom: 0%; font-size: 10px; color: white;"> {{ meetup.starter }} </p>
+        </div>
+        {% endif %}
+      {% endfor %}
+
+      {% for meetup in afternoonMeetups %}
+        {% if meetup.onMonday == True %}
+        <div class="card bg-primary" style="margin-bottom: 1%; margin-left: 5%; margin-right: 5%">
+          <p class="card-text" style="margin-bottom: 0%; font-size: 15px; color: white;"> <a href="{% url 'meetup_details' meetup.pk %}" class = "btn btn-sm" style="font-size: 15px; color: white; margin-bottom: 0%; margin-top: 0%; padding: 0px 0px;"> {{ meetup }} </a> </p>
+          <p class="card-text" style="margin-bottom: 0%; font-size: 10px; color: white;"> {{ meetup.starter }} </p>
+        </div>
+        {% endif %}
+      {% endfor %}
+
+      {% for meetup in eveningMeetups %}
+        {% if meetup.onMonday == True %}
+        <div class="card bg-dark" style="margin-bottom: 1%; margin-left: 5%; margin-right: 5%;">
+          <p class="card-text" style="margin-bottom: 0%; font-size: 15px; color: white;"> <a href="{% url 'meetup_details' meetup.pk %}" class = "btn btn-sm" style="font-size: 15px; color: white; margin-bottom: 0%; margin-top: 0%; padding: 0px 0px;"> {{ meetup }} </a> </p>
+          <p class="card-text" style="margin-bottom: 0%; font-size: 10px; color: white;"> {{ meetup.starter }} </p>
+        </div>
+        {% endif %}
+      {% endfor %}
+
+      <a href="{% url 'meetup_day_view' 1 %}" class="btn btn-outline-primary btn-sm" style="margin-top: 5%;"> See more details </a>
+    </div>
+  </div>
+
+  <div class="card text-center">
+    <div class="card-body">
+      <h5 class="card-title"> <a href="#" class="btn btn-lg" style="margin-top: 0%; margin-left: 0%; padding: 0% 0%; color: black; font-weight: 500;">  Tuesday Plans </a> </h5>
+      {% for meetup in morningMeetups %}
+        {% if meetup.onTuesday == True %}
+        <div class="card bg-info" style="margin-bottom: 1%; margin-left: 5%; margin-right: 5%;">
+          <p class="card-text" style="margin-bottom: 0%; font-size: 15px; color: white;"> <a href="{% url 'meetup_details' meetup.pk %}" class = "btn btn-sm" style="font-size: 15px; color: white; margin-bottom: 0%; margin-top: 0%; padding: 0px 0px;"> {{ meetup }} </a> </p>
+          <p class="card-text" style="margin-bottom: 0%; font-size: 10px; color: white;"> {{ meetup.starter }} </p>
+        </div>
+        {% endif %}
+      {% endfor %}
+
+      {% for meetup in afternoonMeetups %}
+        {% if meetup.onTuesday == True %}
+        <div class="card bg-primary" style="margin-bottom: 1%; margin-left: 5%; margin-right: 5%">
+          <p class="card-text" style="margin-bottom: 0%; font-size: 15px; color: white;"> <a href="{% url 'meetup_details' meetup.pk %}" class = "btn btn-sm" style="font-size: 15px; color: white; margin-bottom: 0%; margin-top: 0%; padding: 0px 0px;"> {{ meetup }} </a> </p>
+          <p class="card-text" style="margin-bottom: 0%; font-size: 10px; color: white;"> {{ meetup.starter }} </p>
+        </div>
+        {% endif %}
+      {% endfor %}
+
+      {% for meetup in eveningMeetups %}
+        {% if meetup.onTuesday == True %}
+        <div class="card bg-dark" style="margin-bottom: 1%; margin-left: 5%; margin-right: 5%;">
+          <p class="card-text" style="margin-bottom: 0%; font-size: 15px; color: white;"> <a href="{% url 'meetup_details' meetup.pk %}" class = "btn btn-sm" style="font-size: 15px; color: white; margin-bottom: 0%; margin-top: 0%; padding: 0px 0px;"> {{ meetup }} </a> </p>
+          <p class="card-text" style="margin-bottom: 0%; font-size: 10px; color: white;"> {{ meetup.starter }} </p>
+        </div>
+        {% endif %}
+      {% endfor %}
+      <a href="{% url 'meetup_day_view' 2 %}" class="btn btn-sm btn-outline-primary" style="margin-top: 5%"> See more details </a>
+    </div>
+  </div>
+
+  <div class="card text-center">
+    <div class="card-body">
+      <h5 class="card-title"> <a href="#" class="btn btn-lg" style="margin-top: 0%; margin-left: 0%; padding: 0% 0%; color: black; font-weight: 500;">  Wednesday Plans </a> </h5>
+      {% for meetup in morningMeetups %}
+        {% if meetup.onWednesday == True %}
+        <div class="card bg-info" style="margin-bottom: 1%; margin-left: 5%; margin-right: 5%;">
+          <p class="card-text" style="margin-bottom: 0%; font-size: 15px; color: white;"> <a href="{% url 'meetup_details' meetup.pk %}" class = "btn btn-sm" style="font-size: 15px; color: white; margin-bottom: 0%; margin-top: 0%; padding: 0px 0px;"> {{ meetup }} </a> </p>
+          <p class="card-text" style="margin-bottom: 0%; font-size: 10px; color: white;"> {{ meetup.starter }} </p>
+        </div>
+        {% endif %}
+      {% endfor %}
+
+      {% for meetup in afternoonMeetups %}
+        {% if meetup.onWednesday == True %}
+        <div class="card bg-primary" style="margin-bottom: 1%; margin-left: 5%; margin-right: 5%">
+          <p class="card-text" style="margin-bottom: 0%; font-size: 15px; color: white;"> <a href="{% url 'meetup_details' meetup.pk %}" class = "btn btn-sm" style="font-size: 15px; color: white; margin-bottom: 0%; margin-top: 0%; padding: 0px 0px;"> {{ meetup }} </a> </p>
+          <p class="card-text" style="margin-bottom: 0%; font-size: 10px; color: white;"> {{ meetup.starter }} </p>
+        </div>
+        {% endif %}
+      {% endfor %}
+
+      {% for meetup in eveningMeetups %}
+        {% if meetup.onWednesday == True %}
+        <div class="card bg-dark" style="margin-bottom: 1%; margin-left: 5%; margin-right: 5%;">
+          <p class="card-text" style="margin-bottom: 0%; font-size: 15px; color: white;"> <a href="{% url 'meetup_details' meetup.pk %}" class = "btn btn-sm" style="font-size: 15px; color: white; margin-bottom: 0%; margin-top: 0%; padding: 0px 0px;"> {{ meetup }} </a> </p>
+          <p class="card-text" style="margin-bottom: 0%; font-size: 10px; color: white;"> {{ meetup.starter }} </p>
+        </div>
+        {% endif %}
+      {% endfor %}
+      <a href="{% url 'meetup_day_view' 3 %}" class="btn btn-sm btn-outline-primary" style="margin-top: 5%"> See more details </a>
+    </div>
+  </div>
+
+  <div class="card text-center">
+    <div class="card-body">
+      <h5 class="card-title"> <a href="#" class="btn btn-lg" style="margin-top: 0%; margin-left: 0%; padding: 0% 0%; color: black; font-weight: 500;">  Thursday Plans </a> </h5>
+      {% for meetup in morningMeetups %}
+        {% if meetup.onThursday == True %}
+        <div class="card bg-info" style="margin-bottom: 1%; margin-left: 5%; margin-right: 5%;">
+          <p class="card-text" style="margin-bottom: 0%; font-size: 15px; color: white;"> <a href="{% url 'meetup_details' meetup.pk %}" class = "btn btn-sm" style="font-size: 15px; color: white; margin-bottom: 0%; margin-top: 0%; padding: 0px 0px;"> {{ meetup }} </a> </p>
+          <p class="card-text" style="margin-bottom: 0%; font-size: 10px; color: white;"> {{ meetup.starter }} </p>
+        </div>
+        {% endif %}
+      {% endfor %}
+
+      {% for meetup in afternoonMeetups %}
+        {% if meetup.onThursday == True %}
+        <div class="card bg-primary" style="margin-bottom: 1%; margin-left: 5%; margin-right: 5%">
+          <p class="card-text" style="margin-bottom: 0%; font-size: 15px; color: white;"> <a href="{% url 'meetup_details' meetup.pk %}" class = "btn btn-sm" style="font-size: 15px; color: white; margin-bottom: 0%; margin-top: 0%; padding: 0px 0px;"> {{ meetup }} </a> </p>
+          <p class="card-text" style="margin-bottom: 0%; font-size: 10px; color: white;"> {{ meetup.starter }} </p>
+        </div>
+        {% endif %}
+      {% endfor %}
+
+      {% for meetup in eveningMeetups %}
+        {% if meetup.onThursday == True %}
+        <div class="card bg-dark" style="margin-bottom: 1%; margin-left: 5%; margin-right: 5%;">
+          <p class="card-text" style="margin-bottom: 0%; font-size: 15px; color: white;"> <a href="{% url 'meetup_details' meetup.pk %}" class = "btn btn-sm" style="font-size: 15px; color: white; margin-bottom: 0%; margin-top: 0%; padding: 0px 0px;"> {{ meetup }} </a> </p>
+          <p class="card-text" style="margin-bottom: 0%; font-size: 10px; color: white;"> {{ meetup.starter }} </p>
+        </div>
+        {% endif %}
+      {% endfor %}
+      <a href="{% url 'meetup_day_view' 4 %}" class="btn btn-outline-primary btn-sm" style="margin-top: 5%;"> See more details </a>
+    </div>
+  </div>
+
+  <div class="card text-center">
+    <div class="card-body">
+      <h5 class="card-title"> <a href="#" class="btn btn-lg" style="margin-top: 0%; margin-left: 0%; padding: 0% 0%; color: black; font-weight: 500;">  Friday  Plans </a> </h5>
+      {% for meetup in morningMeetups %}
+        {% if meetup.onFriday == True %}
+        <div class="card bg-info" style="margin-bottom: 1%; margin-left: 5%; margin-right: 5%;">
+          <p class="card-text" style="margin-bottom: 0%; font-size: 15px; color: white;"> <a href="{% url 'meetup_details' meetup.pk %}" class = "btn btn-sm" style="font-size: 15px; color: white; margin-bottom: 0%; margin-top: 0%; padding: 0px 0px;"> {{ meetup }} </a> </p>
+          <p class="card-text" style="margin-bottom: 0%; font-size: 10px; color: white;"> {{ meetup.starter }} </p>
+        </div>
+        {% endif %}
+      {% endfor %}
+
+      {% for meetup in afternoonMeetups %}
+        {% if meetup.onFriday == True %}
+        <div class="card bg-primary" style="margin-bottom: 1%; margin-left: 5%; margin-right: 5%">
+          <p class="card-text" style="margin-bottom: 0%; font-size: 15px; color: white;"> <a href="{% url 'meetup_details' meetup.pk %}" class = "btn btn-sm" style="font-size: 15px; color: white; margin-bottom: 0%; margin-top: 0%; padding: 0px 0px;"> {{ meetup }} </a> </p>
+          <p class="card-text" style="margin-bottom: 0%; font-size: 10px; color: white;"> {{ meetup.starter }} </p>
+        </div>
+        {% endif %}
+      {% endfor %}
+
+      {% for meetup in eveningMeetups %}
+        {% if meetup.onFriday == True %}
+        <div class="card bg-dark" style="margin-bottom: 1%; margin-left: 5%; margin-right: 5%;">
+          <p class="card-text" style="margin-bottom: 0%; font-size: 15px; color: white;"> <a href="{% url 'meetup_details' meetup.pk %}" class = "btn btn-sm" style="font-size: 15px; color: white; margin-bottom: 0%; margin-top: 0%; padding: 0px 0px;"> {{ meetup }} </a> </p>
+          <p class="card-text" style="margin-bottom: 0%; font-size: 10px; color: white;"> {{ meetup.starter }} </p>
+        </div>
+        {% endif %}
+      {% endfor %}
+      <a href="{% url 'meetup_day_view' 5 %}" class="btn btn-outline-primary btn-sm" style="margin-top: 5%"> See more details </a>
+    </div>
+  </div>
+</div>
+
+<hr />
+
+<div class = "card-deck">
+  <div class = "card text-center" style="margin-bottom: 10%;">
+    <div class = "card-header"> <a href="#" class="btn btn-lg" style="margin-top: 0%; margin-left: 0%; padding: 0% 0%; color: black; font-weight: 500;">  Monday Classes </a> </div>
+    <div class= "card-body">
+      <h4> Morning </h4>
+      {% for class in morningClasses %}
+        {% if class.onMonday == True %}
+          <a href="{% url 'class_details' class.pk %}" class ="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+
+      <h4> Afternoon </h4>
+      {% for class in afternoonClasses %}
+        {% if class.onMonday == True %}
+          <a href="{% url 'class_details' class.pk %}" class="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+
+      <h4> Evening </h4>
+      {% for class in eveningClasses %}
+        {% if class.onMonday == True %}
+          <a href="{% url 'class_details' class.pk %}" class="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+      <a href="{% url 'class_day_view' 1 %}" class="btn btn-outline-primary btn-sm" style="margin-top: 5%;"> See more details </a>
+    </div>
+  </div>
+
+
+  <div class = "card text-center" style="margin-bottom: 10%;">
+    <div class = "card-header"> <a href="" class="btn btn-lg" style="margin-top: 0%; margin-left: 0%; padding: 0% 0%; color: black; font-weight: 500;">  Tuesday Classes </a> </div>
+    <div class="card-body">
+      <h4> Morning </h4>
+      {% for class in morningClasses %}
+        {% if class.onTuesday == True %}
+          <a href="{% url 'class_details' class.pk %}" class ="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+
+      <h4> Afternoon </h4>
+      {% for class in afternoonClasses %}
+        {% if class.onTuesday == True %}
+          <a href="{% url 'class_details' class.pk %}" class="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+
+      <h4> Evening </h4>
+      {% for class in eveningClasses %}
+        {% if class.onTuesday == True %}
+          <a href="{% url 'class_details' class.pk %}" class="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+      <a href="{% url 'class_day_view' 2 %}" class="btn btn-outline-primary btn-sm" style="margin-top: 5%;"> See more details </a>
+  </div>
+</div>
+
+  <div class = "card text-center" style="margin-bottom: 10%;">
+    <div class = "card-header"> <a href="#" class="btn btn-lg" style="margin-top: 0%; margin-left: 0%; padding: 0% 0%; color: black; font-weight: 500; font-size: 18px;">  Wednesday Classes </a> </div>
+    <div class="card-body">
+      <h4> Morning </h4>
+      {% for class in morningClasses %}
+        {% if class.onWednesday == True %}
+          <a href="{% url 'class_details' class.pk %}" class ="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+
+      <h4> Afternoon </h4>
+      {% for class in afternoonClasses %}
+        {% if class.onWednesday == True %}
+          <a href="{% url 'class_details' class.pk %}" class="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+
+      <h4> Evening </h4>
+      {% for class in eveningClasses %}
+        {% if class.onWednesday == True %}
+          <a href="{% url 'class_details' class.pk %}" class="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+      <a href="{% url 'class_day_view' 3 %}" class="btn btn-outline-primary btn-sm" style="margin-top: 5%;"> See more details </a>
+  </div>
+</div>
+
+
+  <div class = "card text-center" style="margin-bottom: 10%;">
+    <div class = "card-header"> <a href="#" class="btn btn-lg" style="margin-top: 0%; margin-left: 0%; padding: 0% 0%; color: black; font-weight: 500;">  Thursday Classes </a> </div>
+    <div class="card-body">
+      <h4> Morning </h4>
+      {% for class in morningClasses %}
+        {% if class.onThursday == True %}
+          <a href="{% url 'class_details' class.pk %}" class ="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+
+      <h4> Afternoon </h4>
+      {% for class in afternoonClasses %}
+        {% if class.onThursday == True %}
+          <a href="{% url 'class_details' class.pk %}" class="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+
+      <h4> Evening </h4>
+      {% for class in eveningClasses %}
+        {% if class.onThursday == True %}
+          <a href="{% url 'class_details' class.pk %}" class="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+      <a href="{% url 'class_day_view' 4 %}" class="btn btn-outline-primary btn-sm" style="margin-top: 5%;"> See more details </a>
+  </div>
+</div>
+
+  <div class = "card text-center" style="margin-bottom: 10%">
+    <div class = "card-header"> <a href="#" class="btn btn-lg" style="margin-top: 0%; margin-left: 0%; padding: 0% 0%; color: black; font-weight: 500;">  Friday Classes </a> </div>
+    <div class="card-body">
+      <h4> Morning </h4>
+      {% for class in morningClasses %}
+        {% if class.onFriday == True %}
+          <a href="{% url 'class_details' class.pk %}" class ="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+
+      <h4> Afternoon </h4>
+      {% for class in afternoonClasses %}
+        {% if class.onFriday == True %}
+          <a href="{% url 'class_details' class.pk %}" class="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+
+      <h4> Evening </h4>
+      {% for class in eveningClasses %}
+        {% if class.onFriday == True %}
+          <a href="{% url 'class_details' class.pk %}" class="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+      <a href="{% url 'class_day_view' 5 %}" class="btn btn-outline-primary btn-sm" style="margin-top: 5%;"> See more details </a>
+  </div>
+</div>
+</div>
+</div>
+
+
+{% endblock %}

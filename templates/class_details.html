@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Conversations</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'schedule' %}"> Schedules </a> </li>
+  <li class="breadcrumb-item active"> {{ class }} </li>
+
+{% endblock %}
+
+{% block content %}
+<div class="card-deck">
+<div class="card text-center" style="border: 2px solid black; border-radius: 25px; margin-left: 25%; margin-right: 4%; margin-left: 0%; margin-bottom: 2%;">
+  <h1> {{ class }} </h1>
+  <p style="font-size: 15px; color: darkgrey; margin-top: 0%; margin-bottom: 0%">
+    {% if class.courseName != "No name given" %}
+      {{ class.courseName }}
+    {% endif %}
+  </p>
+  <p style="font-size: 15px; color: darkgrey; margin-bottom: 0%;"> {{ class.professor }} </p>
+  <p style="font-size: 15px; color: darkgrey; margin-bottom: 0%;"> {{ class.start_time }} - {{ class.end_time }} </p>
+  <p style="font-size: 15px; color: darkgrey; margin-top: 0%;">
+    {% if class.onMonday == True %}
+    M
+    {% endif %}
+    {% if class.onTuesday == True %}
+    T
+    {% endif %}
+    {% if class.onWednesday == True %}
+    W
+    {% endif %}
+    {% if class.onThursday == True %}
+    Th
+    {% endif %}
+    {% if class.onFriday == True %}
+    F
+    {% endif %}
+  </p>
+
+  <h4 style="font-size: 20px; weight: 400%"> Who's in this class: </h4>
+
+  <p style="font-size: 15px;">
+  {% if class.members.all|length > 1 %}
+  {% for member in class.members.all %}
+
+    {{ member.username }}, &nbsp
+
+  {% endfor %}
+  {% endif %}
+
+  {% if class.members.all|length == 1 %}
+  {% for member in class.members.all %}
+
+    {{ member.username }}
+
+  {% endfor %}
+  {% endif %}
+
+  {% if class.members.all|length == 0 %}
+    <p style="font-size: 15px; margin-bottom: 0%;">
+    Nobody is in this class.
+    </p>
+  {% endif %}
+
+
+  </p>
+</div>
+<div class="card text-center" style="border: 2px solid black; border-radius: 25px; margin-left: 25%; margin-right: 4%; margin-left: 0%; margin-bottom: 2%;">
+  <h5 style="margin-top: 2%;"> Attached Wikis </h5>
+  {% if attached_wikis|length == 0 %}
+    <p> There aren't any wikis attached to this class! </p>
+  {% endif %}
+
+  {% if attached_wikis|length != 0 %}
+    {% for i in attached_wikis %}
+      <a href="{% url 'class_wiki_details' i.pk %}"> {{ i }} </a>
+    {% endfor %}
+  {% endif %}
+</div>
+</div>
+
+
+  <a href="{% url 'new_class_topic' class.pk %}", class= "btn btn-primary btn-sm" style="margin-top: .5%; margin-bottom: .25%;"> Create a new topic </a>
+  {% if user_is_in_class == True %}
+  <a href="{% url 'leave_class' class.pk %}", class= "btn btn-danger btn-sm" style="margin-top: .5%; margin-bottom: .25%;"> Leave this class </a>
+  {% endif %}
+
+  {% if user_is_in_class == False %}
+  <a href="{% url 'join_class' class.pk %}", class= "btn btn-success btn-sm" style="margin-top: .5%; margin-bottom: .25%;"> Join this class </a>
+  {% endif %}
+
+
+
+
+  <div class = "card text-center" style="width: 98%; float: center;"> <div class="card-header"> {{ class }}'s Conversation </div> </div>
+    {% for topic in topics %}
+      <div class= "card text-center" style="width: 98%; float: center; margin-bottom: 2%;">
+        <div class="card-title" style="font-size: 25px; font-weight: 700; margin-bottom: 0%; padding-top: 1%;"> {{ topic }} </div>
+        <div class="card-text" style="color: darkgrey; font-size: 10px; margin-top: 0%; font-weight: 400;"> Created by {{ topic.starter }} </div>
+        <div class="card-text" style = "color: black; font-size: 15px; margin-top: 2%; "> {{ topic.description }} </div>
+        <a href="{% url 'class_topic_posts' class.pk topic.pk %}", class="btn btn-primary btn-sm" style="margin-top: 1%; margin-left: 42%; margin-right: 42%; margin-bottom: 1%;"> Discuss this topic </a>
+       </div>
+
+    {% endfor %}
+
+{% endblock %}

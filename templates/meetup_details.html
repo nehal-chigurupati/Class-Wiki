@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Conversations</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'schedule' %}"> Schedules </a> </li>
+  <li class="breadcrumb-item active"> {{ meetup }} </li>
+
+{% endblock %}
+
+{% block content %}
+<div class="boxed" style="border-color: lightblue; background-color: rgba(255, 255, 255, .85); float: center; padding-left: 2%; border-radius: 25px; padding-top: 2%; padding-bottom: 2%">
+  <h1> {{ meetup }} </h1>
+  <p style="font-size: 15px; color: darkgrey; margin-bottom: 0%;"> Creator: {{ meetup.starter }} </p>
+  <p style="font-size: 15px; color: darkgrey; margin-bottom: 0%;"> {{ meetup.members.all|length }} / {{ meetup.maxCapacity }} registered </p>
+  <p style="font-size: 15px; color: darkgrey; margin-bottom: 0%;"> {{ meetup.start_time }} - {{ meetup.end_time }} </p>
+  <p style="font-size: 15px; color: darkgrey; margin-top: 0%;">
+    {% if meetup.onMonday == True %}
+    M
+    {% endif %}
+    {% if meetup.onTuesday == True %}
+    Tu
+    {% endif %}
+    {% if meetup.onWednesday == True %}
+    W
+    {% endif %}
+    {% if meetup.onThursday == True %}
+    Th
+    {% endif %}
+    {% if meetup.onFriday == True %}
+    F
+    {% endif %}
+
+    {% if meetup.onSaturday == True %}
+    Sat
+    {% endif %}
+
+    {% if meetup.onSunday == True %}
+    Sun
+    {% endif %}
+  </p>
+  <h4 style="font-size: 20px; weight: 400%"> Description: </h4>
+  <p style="font-size: 15px;"> {{ meetup.description }} </p>
+
+  <h4 style="font-size: 20px; weight: 400%"> Who's going: </h4>
+
+  <p style="font-size: 15px;">
+  {% if meetup.members.all|length > 1 %}
+  {% for member in meetup.members.all %}
+
+    {{ member.username }}, &nbsp
+
+  {% endfor %}
+  {% endif %}
+
+  {% if meetup.members.all|length == 1 %}
+  {% for member in meetup.members.all %}
+
+    {{ member.username }}
+
+  {% endfor %}
+  {% endif %}
+
+  {% if meetup.members.all|length == 0 %}
+    <p style="font-size: 15px; margin-bottom: 0%;">
+    Nobody has registered, and the host can't go anymore.
+    </p>
+
+    <p style="font-size: 15px; margin-top: 0%;">
+    If you would like to join and restart the event, click "Join this meetup".
+    </p>
+
+  {% endif %}
+
+
+
+  </p>
+
+  <a href="{% url 'new_meetup_topic' meetup.pk %}", class= "btn btn-primary btn-sm" style="margin-top: .5%; margin-bottom: .25%;"> Create a new topic </a>
+  {% if user_is_in_meetup == False and meetup.members.all|length < meetup.maxCapacity %}
+  <a href="{% url 'join_meetup' meetup.pk %}", class= "btn btn-success btn-sm" style="margin-top: .5%; margin-bottom: .25%;"> Join this meetup </a>
+  {% endif %}
+
+  {% if user_is_in_meetup == True and meetup.members.all|length < meetup.maxCapacity %}
+  <a href="{% url 'leave_meetup' meetup.pk %}", class= "btn btn-danger btn-sm" style="margin-top: .5%; margin-bottom: .25%;"> Leave this meetup </a>
+  {% endif %}
+
+  {% if user_is_in_meetup == False and meetup.members.all|length == meetup.maxCapacity %}
+
+  <p> Sorry, this meetup is already full! You can't join unless someone else leaves. </p>
+
+  {% endif %}
+
+
+  <div class = "card text-center" style="width: 98%; float: center;"> <div class="card-header"> Conversation about this meetup </div> </div>
+
+  {% for topic in topics %}
+    <div class= "card text-center" style="width: 98%; float: center; margin-bottom: 2%;">
+      <div class="card-title" style="font-size: 25px; font-weight: 700; margin-bottom: 0%; padding-top: 1%;"> {{ topic }} </div>
+      <div class="card-text" style="color: darkgrey; font-size: 10px; margin-top: 0%; font-weight: 400;"> Created by {{ topic.starter }} </div>
+      <div class="card-text" style = "color: black; font-size: 15px; margin-top: 2%; "> {{ topic.description }} </div>
+      <a href="{% url 'meetup_topic_posts' meetup.pk topic.pk %}", class="btn btn-primary btn-sm" style="margin-top: 1%; margin-left: 42%; margin-right: 42%; margin-bottom: 1%;"> Discuss this topic </a>
+     </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

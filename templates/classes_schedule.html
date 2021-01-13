@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Conversations</a></li>
+  <li class="breadcrumb-item active">Week Schedule</li>
+{% endblock %}
+
+{% block content %}
+
+<h2 style="color: black;"> Class Schedule </h2>
+<a href="{% url 'new_class' %}" class="btn btn-primary btn-sm"> Add a new class </a>
+<div class = "card-deck" style="margin-right: .9%; margin-top: 1%;">
+  <div class = "card text-center" style="margin-bottom: 10%;">
+    <div class = "card-header"> <a href="#" class="btn btn-lg" style="margin-top: 0%; margin-left: 0%; padding: 0% 0%; color: black; font-weight: 500;">  Monday </a> </div>
+    <div class= "card-body">
+      <h4> Morning </h4>
+      {% for class in morningClasses %}
+        {% if class.onMonday == True %}
+          <a href="{% url 'class_details' class.pk %}" class ="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+
+      <h4> Afternoon </h4>
+      {% for class in afternoonClasses %}
+        {% if class.onMonday == True %}
+          <a href="{% url 'class_details' class.pk %}" class="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+
+      <h4> Evening </h4>
+      {% for class in eveningClasses %}
+        {% if class.onMonday == True %}
+          <a href="{% url 'class_details' class.pk %}" class="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+      <a href="{% url 'class_day_view' 1 %}" class="btn btn-outline-primary btn-sm" style="margin-top: 5%;"> See more details </a>
+    </div>
+  </div>
+
+
+  <div class = "card text-center" style="margin-bottom: 10%;">
+    <div class = "card-header"> <a href="" class="btn btn-lg" style="margin-top: 0%; margin-left: 0%; padding: 0% 0%; color: black; font-weight: 500;">  Tuesday </a> </div>
+    <div class="card-body">
+      <h4> Morning </h4>
+      {% for class in morningClasses %}
+        {% if class.onTuesday == True %}
+          <a href="{% url 'class_details' class.pk %}" class ="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+
+      <h4> Afternoon </h4>
+      {% for class in afternoonClasses %}
+        {% if class.onTuesday == True %}
+          <a href="{% url 'class_details' class.pk %}" class="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+
+      <h4> Evening </h4>
+      {% for class in eveningClasses %}
+        {% if class.onTuesday == True %}
+          <a href="{% url 'class_details' class.pk %}" class="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+      <a href="{% url 'class_day_view' 2 %}" class="btn btn-outline-primary btn-sm" style="margin-top: 5%;"> See more details </a>
+  </div>
+</div>
+
+  <div class = "card text-center" style="margin-bottom: 10%;">
+    <div class = "card-header"> <a href="#" class="btn btn-lg" style="margin-top: 0%; margin-left: 0%; padding: 0% 0%; color: black; font-weight: 500; font-size: 18px;">  Wednesday </a> </div>
+    <div class="card-body">
+      <h4> Morning </h4>
+      {% for class in morningClasses %}
+        {% if class.onWednesday == True %}
+          <a href="{% url 'class_details' class.pk %}" class ="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+
+      <h4> Afternoon </h4>
+      {% for class in afternoonClasses %}
+        {% if class.onWednesday == True %}
+          <a href="{% url 'class_details' class.pk %}" class="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+
+      <h4> Evening </h4>
+      {% for class in eveningClasses %}
+        {% if class.onWednesday == True %}
+          <a href="{% url 'class_details' class.pk %}" class="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+      <a href="{% url 'class_day_view' 3 %}" class="btn btn-outline-primary btn-sm" style="margin-top: 5%;"> See more details </a>
+  </div>
+</div>
+
+
+  <div class = "card text-center" style="margin-bottom: 10%;">
+    <div class = "card-header"> <a href="#" class="btn btn-lg" style="margin-top: 0%; margin-left: 0%; padding: 0% 0%; color: black; font-weight: 500;">  Thursday </a> </div>
+    <div class="card-body">
+      <h4> Morning </h4>
+      {% for class in morningClasses %}
+        {% if class.onThursday == True %}
+          <a href="{% url 'class_details' class.pk %}" class ="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+
+      <h4> Afternoon </h4>
+      {% for class in afternoonClasses %}
+        {% if class.onThursday == True %}
+          <a href="{% url 'class_details' class.pk %}" class="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+
+      <h4> Evening </h4>
+      {% for class in eveningClasses %}
+        {% if class.onThursday == True %}
+          <a href="{% url 'class_details' class.pk %}" class="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+      <a href="{% url 'class_day_view' 4 %}" class="btn btn-outline-primary btn-sm" style="margin-top: 5%;"> See more details </a>
+  </div>
+</div>
+
+  <div class = "card text-center" style="margin-bottom: 10%">
+    <div class = "card-header"> <a href="#" class="btn btn-lg" style="margin-top: 0%; margin-left: 0%; padding: 0% 0%; color: black; font-weight: 500;">  Friday </a> </div>
+    <div class="card-body">
+      <h4> Morning </h4>
+      {% for class in morningClasses %}
+        {% if class.onFriday == True %}
+          <a href="{% url 'class_details' class.pk %}" class ="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+
+      <h4> Afternoon </h4>
+      {% for class in afternoonClasses %}
+        {% if class.onFriday == True %}
+          <a href="{% url 'class_details' class.pk %}" class="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+
+      <h4> Evening </h4>
+      {% for class in eveningClasses %}
+        {% if class.onFriday == True %}
+          <a href="{% url 'class_details' class.pk %}" class="btn"> {{ class }} </a>
+        {% endif %}
+      {% endfor %}
+      <a href="{% url 'class_day_view' 5 %}" class="btn btn-outline-primary btn-sm" style="margin-top: 5%;"> See more details </a>
+  </div>
+</div>
+</div>
+
+
+{% endblock %}

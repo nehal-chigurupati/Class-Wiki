@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Start a New Topic{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+  <li class="breadcrumb-item active"><a> Your Profile </a></li>
+{% endblock %}
+
+{% block content %}
+<h4> {{ user.username }} </h4>
+<p style="margin-top: 0%; margin-left: 0%; padding: 0% 0%; color: darkgrey; font-weight: 500;">  Profile </p>
+
+
+{% if has_profile == False %}
+  <h6> Uh oh, you haven't set up your profile yet! Would you like to do that now? </h6>
+  <a href="{% url 'profile_setup' %}" class="btn btn-primary btn-lg"> <i class="fas fa-id-badge"></i> Setup your profile </a>
+{% endif %}
+
+{% if has_profile == True %}
+  <div class="card">
+    <div class="card-header">
+      <a href="{% url 'update_name' %}" style="text-decoration: none;">
+        <i class="fas fa-id-badge" style="margin-right: 1%;"></i>
+      </a>
+      {{ profile.get_name }}
+    </div>
+    <div class="card-body">
+      <p>
+        <a href="{% url 'update_dorm' %}" style="text-decoration: none;">
+          <i class="fas fa-igloo" style="margin-right: 1%;"></i>
+        </a>
+        {{ profile.dorm }}
+      </p>
+
+      <p>
+        <a href="{% url 'update_phone_number' %}" style="text-decoration: none;">
+          <i class="fas fa-mobile" style="margin-right: 1%;"></i>
+        </a>
+        {{ profile.phone_number }}
+      </p>
+
+
+      <p>
+        <a href="{% url 'update_contact_email' %}" style="text-decoration: none;">
+          <i class="far fa-paper-plane" style="margin-right: 1%;"></i>
+        </a>
+          {{ profile.contact_email }}
+      </p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 5%;">
+    <div class="card-body">
+      <h5> <a href="{% url 'update_bio' %}" style="text-decoration: none;"> <i class="fas fa-atlas" style="margin-right: 1%;"> </i></a>Bio </h5>
+        <p> {{ profile.biography }} </p>
+    </div>
+  </div>
+{% endif %}
+
+
+
+{% endblock %}

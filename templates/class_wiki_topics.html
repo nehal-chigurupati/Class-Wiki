@@ -1,0 +1,34 @@
+
+
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'home' %}">Conversations</a></li>
+<li class="breadcrumb-item"><a href="{% url 'class_wiki' %}"> Class Wiki </a> </li>
+<li class="breadcrumb-item"><a href="{% url 'class_wiki_details' class_wiki.pk %}"> {{ class_wiki }} Wiki </a></li>
+<li class="breadcrumb-item"><a href="{% url 'class_wiki_topics' class_wiki.pk %}"> {{ class_wiki }} Wiki </a></li>
+
+{% endblock %}
+
+{% block content %}
+
+<a href="{% url 'new_class_wiki_topic' class_wiki.pk %}" class="btn btn-primary btn-sm" style="margin-bottom: 1%;"> Post a new topic </a>
+<div class = "card text-center" style="width: 98%; float: center;"> <div class="card-header"> {{ class_wiki }}'s Conversation </div> </div>
+  {% for topic in class_wiki.class_wiki_topics.all %}
+    <div class= "card text-center" style="width: 98%; float: center; margin-bottom: 2%;">
+      <div class="card-title" style="font-size: 25px; font-weight: 700; margin-bottom: 0%; padding-top: 1%;"> {{ topic }} </div>
+      <div class="card-text" style="color: darkgrey; font-size: 10px; margin-top: 0%; font-weight: 400;"> Created by {{ topic.starter }} </div>
+      <div class="card-text" style="color: darkgrey; font-size: 10px; margin-top: 0%; font-weight: 400;"> Created at {{ topic.created_at }} </div>
+      <div class="card-text" style="color: darkgrey; font-size: 10px; margin-top: 0%; font-weight: 400;"> Views: {{ topic.views }} </div>
+      <div class="card-text" style = "color: black; font-size: 15px; margin-top: 2%; "> {{ topic.description }} </div>
+      <a href="{% url 'class_wiki_topic_posts' class_wiki.pk topic.pk %}", class="btn btn-primary btn-sm" style="margin-top: 1%; margin-left: 42%; margin-right: 42%; margin-bottom: 1%;"> Discuss this topic </a>
+     </div>
+
+  {% endfor %}
+</div>
+
+{% endblock %}

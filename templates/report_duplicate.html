@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+<li class="breadcrumb-item"><a href="{% url 'class_wiki' %}"> Wikis </a> </li>
+<li class="breadcrumb-item"><a href="{% url 'class_wiki_details' wiki.pk %}"> {{ wiki }} </a></li>
+<li class="breadcrumb-item active"> Report as Duplicate </li>
+
+{% endblock %}
+
+{% block content %}
+
+  <h1> Thanks for reporting this wiki as a duplicate! The wiki will be reviewed by mods. </h1>
+
+  <a href="{% url 'class_wiki_details' wiki.pk %}", class= "btn btn-success btn-lg" style="margin-top: .5%; margin-bottom: .25%;"> Return to the wiki </a>
+
+
+{% endblock %}

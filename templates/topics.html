@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ board.name }} - {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Boards</a></li>
+  <li class="breadcrumb-item active">{{ board.name }}</li>
+{% endblock %}
+
+{% block content %}
+  <div class="mb-4">
+    <a href="{% url 'new_topic' board.pk %}" class="btn btn-primary">New topic</a>
+  </div>
+
+  <div class="card text-center" style="color: black; margin-bottom: 1%; margin-right: 2%; padding-top: 1%; padding-bottom: 1%; font-weight: 700; font-size: 20px;"> {{ board.name }} </div>
+  <div class="row" style="margin-right: .1%;">
+  {% for topic in topics %}
+    <div class="col-sm-4" style="margin-bottom: 1%;">
+    <div class= "card text-center" style="width: 98%; float: center;">
+      <div class="card-title" style="font-size: 25px; font-weight: 500; margin-bottom: 0%; padding-top: 2%; padding-left: 1%; padding-right: 1%;"> {{ topic }} </div>
+      <div class="card-text" style="color: darkgrey; font-size: 10px; margin-top: 0%; font-weight: 400;"> Created by {{ topic.starter }} </div>
+      <div class="card-text" style="color: darkgrey; font-size: 10px; margin-top: 0%; font-weight: 400;"> Last updated {{ topic.last_updated }} </div>
+      <div class="card-text" style="color: darkgrey; font-size: 10px; margin-top: 0%; font-weight: 400;"> {{ topic.views }} views </div>
+
+      <a href="{% url 'topic_posts' board.pk topic.pk %}", class="btn btn-primary btn-sm" style="margin-top: 1%; margin-bottom: 2%; margin-left: 30%; margin-right: 30%;"> Discuss this topic </a>
+     </div>
+     </div>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Start a New Topic{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+  <li class="breadcrumb-item active"><a> View Profile </a></li>
+{% endblock %}
+
+{% block content %}
+<h4> {{ requested_user.username }} </h4>
+<p style="margin-top: 0%; margin-left: 0%; padding: 0% 0%; color: darkgrey; font-weight: 500; margin-bottom: 0%;"> Profile </p>
+<a href="{% url 'new_message' %}" class="btn btn-primary btn-sm" style="margin-bottom: 5%; margin-top: 1%; padding-top: 0%;"><i class="far fa-comment-dots"></i> Send a message </a>
+
+
+{% if has_profile == False %}
+<div class="card" style="padding-top: 5%; padding-bottom: 5%; padding-left: 5%; padding-right: 5%;">
+  <h3> Uh oh, this user hasn't set up their profile! </h3>
+  <a href="{% url 'home' %}" class="btn btn-warning btn-lg"> <i class="fas fa-igloo"></i> Go back home </a>
+{% endif %}
+</div>
+
+{% if has_profile == True %}
+  <div class="card">
+    <div class="card-header"> {{ requested_user.get_name }} </div>
+    <div class="card-body">
+      <p> Dorm: {{ requested_user.profile.get.dorm }} </p>
+      <p> Phone Number: {{ requested_user.profile.get.phone_number }} </p>
+      <p> Contact Email: {{ requested_user.profile.get.contact_email }} </p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h6> Bio </h6>
+        <p> {{ requested_user.profile.get.biography }} </p>
+    </div>
+  </div>
+{% endif %}
+
+
+
+{% endblock %}

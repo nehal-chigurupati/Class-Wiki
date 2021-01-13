@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Conversations</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'schedule' %}"> Schedule </a></li>
+  <li class="breadcrumb-item active"> Classes on {{ day }} </li>
+{% endblock %}
+
+{% block content %}
+
+<h4> {{ day }}'s Classes </h4>
+{% if number_classes == 1 %}
+  <p style="font-size: 13px; font-color: darkgrey; weight: 400%;"> There is one class on {{ day }}. </p>
+{% endif %}
+
+{% if number_classes == 0 %}
+  <p style="font-size: 13px; font-color: darkgrey; weight: 400%;"> Nobody has posted any classes on {{ day }}. </p>
+  <a href = "{% url 'new_class' %}" class="btn btn-success btn-sm" style="margin-top: 0%; margin-bottom: 0%; margin-left: 0%; color: white; font-weight: 400; padding: .5% .5%"> Post a new class </a>
+{% endif %}
+
+{% if number_classes > 1 %}
+  <p style="font-size: 13px; font-color: darkgrey; weight: 400%;"> There are {{ number_classes }} classes on {{ day }}. </p>
+{% endif %}
+
+{% if number_classes > 0 %}
+{% for class in classes %}
+<div class="card" style="margin-bottom: 2%; margin-right: 2%;">
+    <div class="card-header text-center" style="font-size: 30px; font-weight: 500; padding-top: .1%; padding-bottom: .1%; margin-bottom: 0%;"> {{ class }} </div>
+    <div class="card-deck">
+      <div class="card" style="margin-top: 1%; margin-bottom: 1%; margin-left: 3%; margin-right: 3%; padding-left: .5%; padding-right: .5%;">
+        <div class="card-title text-center" style="font-size: 20px; font-weight: 600; margin-bottom: 0%;">
+          Details
+        </div>
+      <div class="card-body text-center" style="margin-top: 0%; padding-top: 0%;">
+        <div class="card-text" style="font-size: 15px; font-weight: 500; margin-top: 0%; margin-bottom: 3%;">
+          Started by {{ class.starter }}
+        </div>
+
+        <div class="card-text" style="font-size: 15px; font-weight: 300; margin-top: 0%; margin-bottom: 0%;">
+          Time: {{ class.start_time }} - {{ class.end_time }} on {{ day }}
+        </div>
+      <div class="card-text" style="font-size: 15px; font-weight: 300; margin-top: 0%; margin-bottom: 0%;">
+         Happening at: {{ class.location }}
+      </div>
+      <div class="card-text" style="font-size: 15px; font-weight: 300; margin-top: 0%; margin-bottom: 0%;">
+         Number of people in this class: {{ class.members.all|length }}
+      </div>
+    </div>
+    </div>
+
+    <div class="card" style="margin-top: 3%; margin-bottom: 1%; margin-left: 0%; margin-right: 0%; padding-left: .5%; padding-right: .5%; border: transparent;">
+    <div class="card-body text-center" style="margin-top: 0%; padding-top: 0%;">
+      <a href="{% url 'class_details' class.pk %}" class="btn btn-info" style="margin-top: 5%;"> See full details + more discussions </a>
+      {% if currUser not in class.members.all %}
+      <a href="{% url 'join_class' class.pk %}" class="btn btn-success" style="margin-top: 5%; font-weight: 700"> Join this class </a>
+      {% endif %}
+
+      {% if currUser in class.members.all %}
+      <a href="{% url 'leave_class' class.pk %}" class="btn btn-danger" style="margin-top: 5%; font-weight: 700"> Leave this class </a>
+      {% endif %}
+
+    </div>
+    </div>
+
+    <div class="card" style="margin-top: 1%; margin-bottom: 1%; margin-left: 3%; margin-right: 3%; padding-left: .5%; padding-right: .5%;">
+      <div class="card-title text-center" style="font-size: 20px; font-weight: 600;">
+        Topics of discussion
+      </div>
+
+
+    <div class="card-body text-center" style="margin-top: 0%; padding-top: 0%;">
+    {% if class.class_topics.all|length > 4 %}
+      {% for i in '01234'|make_list %}
+        <div class="card bg-primary">
+          <div class="card-header">'
+            {{ class.class_topics.all }}
+          </div>
+        </div>
+      {% endfor %}
+      {% endif %}
+
+    {% if class.class_topics.all|length <= 4 and class.class_topics.all|length != 0 %}
+
+      {% for topic in class.class_topics.all %}
+      <div class="card bg-primary" style="margin-bottom: 1%;">
+        <a href="{% url 'class_topic_posts' class.pk topic.pk %}" class="btn btn-primary"> {{ topic }} </a>
+      </div>
+      {% endfor %}
+    {% endif %}
+
+    {% if class.class_topics.all|length == 0 %}
+      <p> There aren't any topics of discussion posted. </p>
+      <p> Click "See full info" to ask a question. </p>
+    {% endif %}
+
+    </div>
+
+
+  </div>
+
+</div>
+</div>
+{% endfor %}
+{% endif %}
+
+{% endblock %}

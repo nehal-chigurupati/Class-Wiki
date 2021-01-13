@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Start a New Topic{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active"><a> Search </a></li>
+{% endblock %}
+
+{% block content %}
+  <h6> Enter your search here: </h6>
+  <form method="post" style="margin-right: 2%;" novalidate>
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-success">Search</button>
+  </form>
+</div>
+{% endblock %}

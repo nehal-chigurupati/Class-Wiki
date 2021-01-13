@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Start a New Topic{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Conversations</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'schedule' %}"> Schedule </a></li>
+  <li class="breadcrumb-item"><a> {{ meetup }} </a></li>
+  <li class="breadcrumb-item active"><a> New Meetup Topic </a></li>
+{% endblock %}
+
+{% block content %}
+<h4> {{ meetup }} </h4>
+<p style="margin-top: 0%; margin-left: 0%; padding: 0% 0%; color: darkgrey; font-weight: 500;">  Create a new topic of conversation </a>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-success">Post</button>
+  </form>
+{% endblock %}

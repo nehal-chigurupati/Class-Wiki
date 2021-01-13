@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="#">Account</a></li>
+<li class="breadcrumb-item"><a href="{% url 'see_messages' %}"> Messages </a> </li>
+<li class="breadcrumb-item active"> {{ message }} </li>
+
+
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    <h4> {{ message.subject }} </h4>
+    <h6> From: {{ message.sender }} </h6>
+    <h6> To: {{ message.recipient }} </h6>
+    <h6> {{ message.sent_at }} </h6>
+
+    <p style="margin-top: 3%;"> {{ message.get_message_as_markdown }} </p>
+  </div>
+</div>
+<hr/>
+
+<h4> Replies: </h4>
+{% for reply in replies %}
+  {% if reply.sender == user %}
+    <div class="card" style="margin-left: 60%; margin-top: 5%; margin-bottom: 5%; background-color: rgba(160, 199, 255, .9);">
+      <div class="card-body">
+        {{ reply.get_message_as_markdown }}
+      </div>
+    </div>
+  {% endif %}
+  {% if reply.sender != user %}
+    <div class="card" style="margin-left: 0%; margin-right: 60%; margin-top: 5%: margin-bottom: 5%; padding-left: 0%; padding-right: 0%">
+      <div class="card-body">
+        {{ reply.get_message_as_markdown }}
+      </div>
+    </div>
+  {% endif %}
+{% endfor %}
+
+<form method="post" class="mb-4" style="margin-right: 2%" novalidate>
+  {% csrf_token %}
+  {% include 'includes/form.html' %}
+  <button type="submit" class="btn btn-success">Send message </button>
+</form>
+
+{% endblock %}
+{% block javascript %}
+<script>
+    var simplemde = new SimpleMDE();
+  </script>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Enter a new class{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Conversations</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'schedule' %}"> Schedule </a></li>
+  <li class="breadcrumb-item active">New Class</li>
+{% endblock %}
+
+{% block content %}
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-success">Post</button>
+  </form>
+{% endblock %}

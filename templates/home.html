@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Conversations</a></li>
+  <li class="breadcrumb-item active">{{ board.name }}</li>
+{% endblock %}
+
+{% block content %}
+
+  <div class="row" style="margin-right: .1%; margin-top: 1%;">
+  {% for board in boards %}
+      <div class="col-sm-4" style="margin-bottom: 1%;">
+          <div class="card text-center" style="opacity: 100%">
+            <div class="card-body">
+              <h5 class ="card-title">{{ board.name }}  </h5>
+              <p class="card-text"> {{ board.description }} </p>
+              <a href="{% url 'board_topics' board.pk %}" class="btn btn-primary">Visit {{ board.name }}</a>
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+    <div class="col-sm-4" style="margin-bottom: 1%;">
+      <div class="card text-center" style=" opacity: 100%">
+        <div class="card-body">
+          <h5 class ="card-title"> Schedules </h5>
+          <p class="card-text"> See everyone's classes and fun stuff going on here </p>
+          <a href="{% url 'schedule' %}" class="btn btn-primary">Visit Scheduling</a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-sm-4" style="margin-bottom: 1%;">
+        <div class="card text-center" style="opacity: 100%">
+          <div class="card-body">
+            <h5 class ="card-title"> Class Wiki </h5>
+            <p class="card-text"> See collected info about a bunch of classes here!  </p>
+            <a href="{% url 'class_wiki' %}" class="btn btn-primary">Visit the Class Wiki </a>
+          </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}

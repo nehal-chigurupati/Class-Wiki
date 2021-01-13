@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'home' %}">Conversations</a></li>
+<li class="breadcrumb-item"><a href="{% url 'schedule' %}"> Schedules </a> </li>
+<li class="breadcrumb-item"><a href="{% url 'class_details' class.pk %}"> {{ class }} </a></li>
+
+{% endblock %}
+
+{% block content %}
+  <h1> You've succesfully left the class! </h1>
+
+  <a href="{% url 'class_details' class.pk %}", class= "btn btn-success btn-lg" style="margin-top: .5%; margin-bottom: .25%;"> Return to the class details </a>
+
+
+{% endblock %}

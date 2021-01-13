@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}{{ topic.subject }}{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Conversations</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'schedule' %}"> Schedule </a></li>
+  <li class="breadcrumb-item"><a href="{% url 'class_details' topic.classReference.pk %}"> {{ topic.classReference }} </a> </li>
+  <li class="breadcrumb-item active"> {{ topic }} </li>
+{% endblock %}
+
+{% block content %}
+
+
+  <div class="card" style="margin-bottom: 0%; margin-right: 2%">
+    <div class = "card-header bg-info text-center" style="padding-top: 1%; padding-bottom: 1%;">
+      <p style="color: black; font-size: 20px;font-weight = 800; margin-top: 0%; margin-bottom: 0%;"> {{ topic.subject }} </p>
+      <p style="color: black; font-size: 15px; font-weight = 600; margin-top: 0%; margin-bottom: 0%;"> {{ topic.starter }} </p>
+      <p style="color: black; font-size: 15px; font-weight = 600; margin-top: 0%; margin-bottom: 0%;"> OP </p>
+    </div>
+    <div class = "card-text text-left" style="margin-top: 2%; margin-bottom: 2%; margin-left: 2%; margin-right: 2%;"> {{ topic.description }}</div>
+  </div>
+
+  <div class="mb-4" style="margin-top: .5%;">
+    <a href="{% url 'class_reply_topic' topic.classReference.pk topic.pk %}" class="btn btn-primary" role="button">Reply</a>
+  </div>
+
+  {% for post in topic.class_topic_posts.all %}
+      <div class="card" style="opacity: 100%; margin-right: 2%; background-color: white; margin-top: 1%; padding-left: 2%; padding-right: 0%; padding-top: 2%; padding-bottom: 1%;">
+        <div class="row">
+          <div class="col-10">
+            <div class="row mb-3">
+              <div class="col-6">
+                <strong class="text-muted">{{ post.created_by.username }}</strong>
+              </div>
+              <div class="col-6 text-right" style="padding-right: 0%;">
+                <small class="text-muted">{{ post.created_at }}</small>
+              </div>
+            </div>
+            {{ post.get_message_as_markdown }}
+          </div>
+        </div>
+      </div>
+  {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Conversations</a></li>
+  <li class="breadcrumb-item active"> Class Wiki </li>
+
+{% endblock %}
+
+{% block content %}
+<style>
+  tr {
+    border: solid;
+    border-width: 2px 0;
+  }
+</style>
+  <h1 style="margin-bottom: 0%; margin-left: .5%;"> Class Wiki </h1>
+  <a href="{% url 'new_class_wiki' %}" class="btn btn-sm" style="margin-bottom: 1%; margin-top: 0%;"> <i class="far fa-plus-square"></i> New Wiki </a>
+  <table style="width:100%; ">
+    <thead class="thead-inverse">
+    <tr>
+      <th> Course Number </th>
+      <th> Professor </th>
+      <th> Starter </th>
+      <th> Views </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for class in class_wikis.all %}
+    <tr>
+      <td><a href="{% url 'class_wiki_details' class.pk %}">{{ class }}</a></td>
+      <td> {{ class.professor }} </td>
+      <td> {{ class.starter }} </td>
+      <td> {{ class.views }} </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

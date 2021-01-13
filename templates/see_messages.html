@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="#"> Your Account </a></li>
+  <li class="breadcrumb-item active"> Messages </li>
+
+{% endblock %}
+
+{% block content %}
+<h4> Messages for {{ user }} </h4>
+<div class="mb-4">
+  <a href="{% url 'new_message' %}" class="btn btn-primary">New Message</a>
+</div>
+
+<div class="row" style="margin-right: .1%;">
+{% for message in new_messages %}
+  <div class="col-sm-4" style="margin-bottom: 1%;">
+  <div class= "card text-center" style="width: 98%; float: center;">
+    <div class="card-title" style="font-size: 25px; font-weight: 500; margin-bottom: 0%; padding-top: 2%; padding-left: 1%; padding-right: 1%;"> <i class="fas fa-dot-circle fa-xs" style="color: rgba(14, 115, 216, 1);"></i> {{ message }} </div>
+    <div class="card-text" style="color: darkgrey; font-size: 10px; margin-top: 0%; font-weight: 400;"> Sent by {{ message.sender }} </div>
+    <div class="card-text" style="color: darkgrey; font-size: 10px; margin-top: 0%; font-weight: 400;"> Recipient is {{ message.recipient }} </div>
+    <div class="card-text" style="color: darkgrey; font-size: 10px; margin-top: 0%; font-weight: 400;"> {{ message.last_updated }} </div>
+
+    <a href="{% url 'open_message' message.pk %}", class="btn btn-primary btn-sm" style="margin-top: 1%; margin-bottom: 2%; margin-left: 30%; margin-right: 30%;"> See this Message </a>
+   </div>
+   </div>
+{% endfor %}
+
+{% for message in old_messages %}
+<div class="col-sm-4" style="margin-bottom: 1%;">
+<div class= "card text-center" style="width: 98%; float: center;">
+  <div class="card-title" style="font-size: 25px; font-weight: 500; margin-bottom: 0%; padding-top: 2%; padding-left: 1%; padding-right: 1%;">  {{ message }} </div>
+  <div class="card-text" style="color: darkgrey; font-size: 10px; margin-top: 0%; font-weight: 400;"> Sent by {{ message.sender }} </div>
+  <div class="card-text" style="color: darkgrey; font-size: 10px; margin-top: 0%; font-weight: 400;"> Recipient is {{ message.recipient }} </div>
+  <div class="card-text" style="color: darkgrey; font-size: 10px; margin-top: 0%; font-weight: 400;"> Last updated {{ message.sent_at }} </div>
+
+  <a href="{% url 'open_message' message.pk %}", class="btn btn-primary btn-sm" style="margin-top: 1%; margin-bottom: 2%; margin-left: 30%; margin-right: 30%;"> See this Message </a>
+ </div>
+ </div>
+ {% endfor %}
+
+</div>
+
+
+{% endblock %}
