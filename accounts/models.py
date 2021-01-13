@@ -8,7 +8,7 @@ class Message(models.Model):
     sender = models.ForeignKey(User, related_name='sent_messages', on_delete = models.CASCADE)
     recipient = models.ForeignKey(User, related_name = "received_messages", on_delete=models.CASCADE, null=True)
     subject = models.CharField(max_length = 255)
-    message = models.CharField(max_length=4000000000000)
+    message = models.CharField(max_length=400000)
     sent_at = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(null=True)
     viewed_by_recipient = models.BooleanField(default=False)

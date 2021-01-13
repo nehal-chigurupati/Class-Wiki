@@ -21,7 +21,7 @@ class new_message_form(forms.ModelForm):
     message = forms.CharField(
     widget = forms.Textarea(
         attrs = {'rows': 5}),
-    max_length = 4000000000000
+    max_length = 400000
     )
 
     class Meta:
