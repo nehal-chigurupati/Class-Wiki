@@ -160,6 +160,12 @@
 
       <i class="fas fa-school" style="margin-left: 45%;"></i>
       <a href="#" style="margin-left: 25%; font-weight: 800; margin-bottom: 5%; padding-bottom: 0%; font-size: 20px;">Classes</a>
+      {% if user.classes_is_following.all|length == 0 %}
+        <p> No </p>
+        <p> Classes! </p>
+      {% endif %}
+
+      {% if user.classes_is_following.all|length > 0 %}
       {% for class in user.classes_is_following.all %}
         {% if forloop.counter < 3 %}
         <a href="{% url 'class_details' class.pk %}" style="font-size: 12px; font-weight: 800; margin-top: 0%; padding-top: 0%; margin-left: 15%;"> {{ class }} </a>
@@ -178,6 +184,7 @@
           <a href="{% url 'class_details' class.pk %}" style="font-size: 12px; font-weight: 800; margin-top: 0%; padding-top: 0%; margin-left: 15%;"> {{ class }} </a>
         {% endif %}
       {% endfor %}
+      {% endif %}
 
     <i class="fas fa-server" style="margin-left: 45%; margin-bottom: 0%; margin-top: 15%;"></i>
     <a href="#" style="margin-left: 30%; font-weight: 800; margin-bottom: 5%; padding-bottom: 0%; padding-top: 0%; font-size: 20px;">Wikis</a>
