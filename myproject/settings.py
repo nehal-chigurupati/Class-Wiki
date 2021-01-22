@@ -19,6 +19,7 @@ from django.core.management.utils import get_random_secret_key
 
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -144,6 +145,9 @@ TIME_INPUT_FORMATS = ['%I:%M %p',]
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATICFILES_DIRS = [
+    #os.path.join(BASE_DIR, 'static'),
+#]
 
 
 LOGOUT_REDIRECT_URL = 'home'
