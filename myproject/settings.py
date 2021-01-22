@@ -18,10 +18,12 @@ import dj_database_url
 from django.core.management.utils import get_random_secret_key
 
 
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
+SECRET_KEY = '$36+wf9pb^g29wi1r=(kk_pafl_qd$we96g@=cl*^i_xc)-adi'
+#os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+#os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -145,10 +147,10 @@ TIME_INPUT_FORMATS = ['%I:%M %p',]
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 #STATICFILES_DIRS = [
     #os.path.join(BASE_DIR, 'static'),
 #]
-
 
 LOGOUT_REDIRECT_URL = 'home'
 
@@ -157,7 +159,3 @@ LOGIN_REDIRECT_URL = 'home'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 LOGIN_URL = 'login'
-
-MEDIA_URL = '/media/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -151,8 +151,11 @@ def view_personal_profile(request):
             break
         else:
             i = i + 1
+    if has_profile == True:
+        return render(request, 'view_personal_profile.html', {'user': current_user, 'profile': current_user.profile.get(), 'has_profile': has_profile})
+    else:
+        return render(request, 'view_personal_profile.html', {'user': current_user, 'has_profile': has_profile})
 
-    return render(request, 'view_personal_profile.html', {'user': current_user, 'profile': current_user.profile.get(), 'has_profile': has_profile})
 
 @login_required
 @user_passes_test(email_check, login_url='not_osu_email')
